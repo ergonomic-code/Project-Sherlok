@@ -20,7 +20,7 @@ import pro.azhidkov.training.project_sherlok.query01.ProductSearchService01
 
 @Import(Backgrounds::class, ProductSearchService01::class)
 @DisplayName("Операция поиска продукта - 01")
-class ProductSearchService01Test(
+class ProductSearchService02Test(
     @Autowired private val backgrounds: Backgrounds,
     @Autowired private val productSearchService01: ProductSearchService01
 ) : SherlokTest() {
