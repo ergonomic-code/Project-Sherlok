@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: "jdbc:tc:postgresql:16.3:///sherlok?TC_REUSABLE=true&TC_TMPFS=/var:rw"
+
+  main:
+    lazy-initialization: true
+
+logging:
+  level:
+    org.springframework.jdbc: DEBUG

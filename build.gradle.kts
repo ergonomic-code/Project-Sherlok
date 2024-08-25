@@ -33,6 +33,9 @@ dependencies {
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    testImplementation("net.datafaker:datafaker:2.2.2")
+    testImplementation("io.kotest:kotest-assertions-core:5.9.1")
 }
 
 kotlin {

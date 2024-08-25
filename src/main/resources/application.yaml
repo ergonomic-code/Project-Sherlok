@@ -1,3 +1,7 @@
 spring:
   application:
     name: Project Sherlok
+
+  sql:
+    init:
+      mode: always
