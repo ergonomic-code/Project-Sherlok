@@ -1,4 +1,4 @@
-package pro.azhidkov.training.project_sherlok.query02.platform
+package pro.azhidkov.training.project_sherlok.platform
 
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.query.Criteria
@@ -24,42 +24,12 @@ infix fun Criteria.OR(criteria: Criteria): Criteria =
 infix fun String.isLike(value: String): Criteria =
     Criteria.where(this).like("%$value%")
 
-infix fun String.isLikeIfNotNull(value: String?): Criteria =
-    if (value != null) {
-        Criteria.where(this).like("%$value%")
-    } else {
-        Criteria.empty()
-    }
-
-infix fun String.isILike(value: String): Criteria =
-    Criteria.where(this).like("%$value%").ignoreCase(true)
-
-infix fun String.isILikeIfNotNull(value: String?): Criteria =
-    if (value != null) {
-        Criteria.where(this).like("%$value%").ignoreCase(true)
-    } else {
-        Criteria.empty()
-    }
-
 infix fun <T, V> KProperty1<T, V>.isLikeIfNotNull(value: String?): Criteria {
     return if (value != null) {
         this.columnName().isLike(value)
     } else {
         Criteria.empty()
     }
-}
-
-infix fun <T, V> KProperty1<T, V>.isILikeIfNotNull(value: String?): Criteria {
-    return if (value != null) {
-        this.columnName().isILike(value)
-    } else {
-        Criteria.empty()
-    }
-}
-
-infix fun <T, V> KProperty1<T, V>.`in`(values: Set<V>): Criteria {
-    return Criteria.where(this.name)
-        .`in`(values)
 }
 
 fun KProperty1<*, *>.columnName() =

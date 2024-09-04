@@ -1,7 +1,7 @@
-package pro.azhidkov.training.project_sherlok.query02
+package pro.azhidkov.training.project_sherlok.query03
 
 import org.springframework.stereotype.Repository
 import pro.azhidkov.training.project_sherlok.platform.SmartRepository
 
 @Repository
-interface ProductsSmartRepo : SmartRepository<Product, Long>
+interface ProductsSmartRepo03 : SmartRepository<Product, Long>

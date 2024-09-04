@@ -43,4 +43,8 @@ class Backgrounds(
         productsRepo.saveAll(toSave)
     }
 
+    fun createProducer(aProducer: Producer): Producer {
+        return producersRepo.save(aProducer)
+    }
+
 }

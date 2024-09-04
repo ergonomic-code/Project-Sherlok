@@ -15,7 +15,7 @@ import pro.azhidkov.training.project_sherlok.platform.SherlokTest
 
 
 @DisplayName("Репозиторий продуктов")
-class ProductsSmartRepoTest(
+class ProductsSmartRepo03Test(
     @Autowired private val repo: ProductsRepo,
     @Autowired private val producersRepo: ProducersRepo
 ) : SherlokTest() {
