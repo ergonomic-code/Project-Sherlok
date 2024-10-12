@@ -13,6 +13,7 @@ fun <T : Any> NamedParameterJdbcOperations.queryForPage(
     pageRequest: Pageable,
     rowMapper: RowMapper<T>
 ): Page<T> {
+    // руками собираем запрос кол-ва сущностей
     val count = this.queryForObject(
         "SELECT count(*) FROM ($baseSql) AS data",
         filterParams,
@@ -23,6 +24,7 @@ fun <T : Any> NamedParameterJdbcOperations.queryForPage(
         return PageImpl(emptyPage, pageRequest, count)
     }
 
+    // руками собираем запрос страницы
     val dataQuery = buildString {
         appendLine("SELECT * FROM($baseSql) data")
         if (pageRequest.sort.isSorted) {
@@ -44,6 +46,7 @@ fun <T : Any> NamedParameterJdbcOperations.queryForPage(
         emptyMap()
     }
 
+    // пробрасываем запрос с пагинацией, параметры и rowMapper агрегата в NamedParameterJdbcOperations
     val data = this.query(
         dataQuery,
         filterParams + pagingParams,

@@ -7,6 +7,9 @@ import pro.azhidkov.training.project_sherlok.platform.SmartRepository
 @Repository
 interface ProductsRepo : SmartRepository<Product, Long> {
 
+    // До SDJ 3 единственным вариантом без ручных запросов в JdbcTemplate или подключения был
+    // только анти паттерн OR NULL - не повторяйте этого дома
+    // см. https://www.youtube.com/watch?v=h927yUAdTD0
     @Query(
         """
             SELECT * FROM product

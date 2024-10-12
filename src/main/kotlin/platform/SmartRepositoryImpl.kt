@@ -24,11 +24,7 @@ class SmartRepositoryImpl<T : Any, ID>(
     protected val rowMapper = EntityRowMapper(entity, jdbcConverter)
 
     override fun findPage(query: Query, pageRequest: Pageable): Page<T> {
-        return jdbcAggregateTemplate.findAll(
-            query,
-            entity.type,
-            pageRequest
-        )
+        return jdbcAggregateTemplate.findAll(query, entity.type, pageRequest)
     }
 
     override fun findPage(
@@ -36,6 +32,7 @@ class SmartRepositoryImpl<T : Any, ID>(
         paramMap: Map<String, Any?>,
         pageRequest: Pageable,
     ): Page<T> {
+        //  RowMapper из SDJ
         return operations.queryForPage(query, paramMap, pageRequest, rowMapper)
     }
 

@@ -23,6 +23,7 @@ class ProductSearchService03(
         val product = Table.create("product")
         val producer = Table.create("producer")
 
+        // SQL Builder
         val query = Select.builder()
 
             .select(product.all())
@@ -30,12 +31,12 @@ class ProductSearchService03(
             .join(producer).on(create(product["producer"], "=", producer["id"]))
 
             .where(TrueCondition.INSTANCE)
-            .andWhereIfPresent(name) { Like.create(product["name"], literalOf("%$it%")) }
+            .andWhereIfPresent(name) { Like.create(product["name"], literalOf("%$it%")) } // if not null DSL
             .andWhereIfPresent(description) { Like.create(product["description"], literalOf("%$it%")) }
             .andWhereIfPresent(producerName) { Like.create(producer["name"], literalOf("%$it%")) }
 
             .build()
-            .let { SqlRenderer.create().render(it) }
+            .let { SqlRenderer.create().render(it) } // рендеринг в строку базовый запрос (без пагинации)
 
         val params = mapOf(
             "name" to name,
@@ -43,9 +44,14 @@ class ProductSearchService03(
             "producerName" to producerName,
         )
 
-        return productsRepo.findPage(query, params, pageRequest)
-    }
+        return productsRepo.findPage(query, params, pageRequest) // ещё один метод кастомного базового репоза
 
+        // Ограничения Criteria API
+        // 1. нет implicit join - нельзя делать выборку по данным вне корня агрегата
+        // 2. поддерживает только простые операнды - нельзя использовать выражения или функции БД
+        //    например в критерии нельзя сделать `length(name)` или `name || description`
+
+    }
 
 }
 
